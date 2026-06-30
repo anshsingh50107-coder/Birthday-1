@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Anushree ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fad0c4);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.card{
+width:90%;
+max-width:380px;
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(12px);
+padding:25px;
+border-radius:20px;
+text-align:center;
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+z-index:10;
+}
+
+.card h1{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.card h2{
+font-size:28px;
+color:#fff700;
+margin-bottom:15px;
+}
+
+.card p{
+font-size:18px;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+button{
+padding:14px 28px;
+border:none;
+border-radius:30px;
+background:#ff4081;
+color:white;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:#ff1744;
+}
+
+.heart{
+position:absolute;
+font-size:25px;
+animation:float 8s linear infinite;
+opacity:.8;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh) scale(0.5);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120px) scale(1.4);
+opacity:0;
+}
+}
+
+canvas{
+position:absolute;
+top:0;
+left:0;
+pointer-events:none;
+}
+
+@media(max-width:480px){
+.card h1{
+font-size:26px;
+}
+.card h2{
+font-size:24px;
+}
+.card p{
+font-size:16px;
+}
+button{
+width:100%;
+}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+<h1>🎂 Happy Birthday 🎂</h1>
+
+<h2>Anushree ❤️</h2>
+
+<p>
+Dear Best Friend,<br><br>
+
+May your birthday be filled with happiness, love, laughter and countless beautiful memories.
+Thank you for being the most wonderful friend anyone could ever ask for.
+
+Stay blessed, keep smiling, and keep shining forever. ✨💖
+
+<br><br>
+
+🎉 Have an Amazing Birthday! 🎉
+</p>
+
+<button onclick="celebrate()">Celebrate 🎊</button>
+</div>
+
+<audio id="music" loop>
+<source src="birthday.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Floating Hearts
+for(let i=0;i<25;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+heart.style.fontSize=(18+Math.random()*22)+"px";
+heart.style.animationDelay=Math.random()*6+"s";
+document.body.appendChild(heart);
+}
+
+// Confetti
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let pieces=[];
+
+function Piece(){
+this.x=Math.random()*canvas.width;
+this.y=Math.random()*canvas.height-canvas.height;
+this.r=Math.random()*6+3;
+this.d=Math.random()*80;
+this.color=`hsl(${Math.random()*360},100%,60%)`;
+this.tilt=Math.random()*10-5;
+this.speed=Math.random()*3+2;
+}
+
+for(let i=0;i<180;i++){
+pieces.push(new Piece());
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+pieces.forEach(p=>{
+ctx.beginPath();
+ctx.fillStyle=p.color;
+ctx.fillRect(p.x,p.y,p.r,p.r);
+});
+
+update();
+requestAnimationFrame(draw);
+}
+
+function update(){
+pieces.forEach(p=>{
+p.y+=p.speed;
+p.x+=Math.sin(p.d);
+if(p.y>canvas.height){
+p.y=-10;
+p.x=Math.random()*canvas.width;
+}
+});
+}
+
+draw();
+
+window.onresize=()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+};
+
+function celebrate(){
+document.getElementById("music").play();
+alert("🎉 Happy Birthday Anushree! ❤️ Wishing you endless happiness and success! 🎂✨");
+}
+</script>
+
+</body>
+</html>
